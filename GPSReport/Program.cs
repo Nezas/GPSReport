@@ -19,7 +19,8 @@ namespace GPSReport
             var allData = jsonData.Concat(csvData).ToList();
 
             Histogram histogram = new(allData, new ConsoleWriter());
-            histogram.DrawSattelites();
+            //histogram.DrawSattelites();
+            histogram.DrawSpeed();
         }
     }
 }
