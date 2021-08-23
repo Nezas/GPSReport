@@ -19,8 +19,10 @@ namespace GPSReport
             var allData = jsonData.Concat(csvData).ToList();
 
             Histogram histogram = new(allData, new ConsoleWriter());
+            RoadSection roadSection = new(new ConsoleWriter());
             //histogram.DrawSattelites();
-            histogram.DrawSpeed();
+            //histogram.DrawSpeed();
+            roadSection.FindRoadSection(allData);
         }
     }
 }
