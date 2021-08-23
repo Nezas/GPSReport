@@ -19,9 +19,7 @@ namespace GPSReport
             Histogram histogram = new(new ConsoleWriter());
             RoadSection roadSection = new(new ConsoleWriter());
 
-            //histogram.DrawSattelites(allData);
-            //histogram.DrawSpeed(allData);
-            roadSection.FindRoadSection(allData);
+            Menu.Start(histogram, roadSection, allData);
         }
     }
 }
