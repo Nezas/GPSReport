@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GPSReport.Models;
 using GPSReport.Writers;
 
@@ -10,38 +8,43 @@ namespace GPSReport
 {
     public class Histogram
     {
-        public List<GpsData> Data;
         private readonly IWriter _writer;
 
-        public Histogram(List<GpsData> data, IWriter writer)
+        public Histogram(IWriter writer)
         {
-            Data = data;
             _writer = writer;
         }
 
-        public void DrawSattelites()
+        public void DrawSattelites(List<GpsData> data)
         {
-            var data = Data.Select(i => i.Satellites).ToArray();
-            int maxValue = data.Max();
+            var satellitesData = data.Select(i => i.Satellites).ToArray();
+            int maxValue = satellitesData.Max();
 
             int stepValue = 100;
 
-            _writer.Write($"    Histogram of sattelites | # = {stepValue} \n");
+            _writer.Write($"    Histogram of sattelites\n");
             _writer.Write("\n");
             for(int i = 0; i <= maxValue; i++)
             {
-                int sattelites = data.Count(value => value == i);
-                string line = new('#', sattelites / stepValue);
-
+                int sattelites = satellitesData.Count(value => value == i);
+                string line;
+                if(sattelites < stepValue && sattelites != 0)
+                {
+                    line = "#";
+                }
+                else
+                {
+                    line = new('#', sattelites / stepValue);
+                }
                 _writer.Write($"{i, 3} |{line} \n");
             }
             _writer.Write("     0 Hits\n");
         }
 
-        public void DrawSpeed()
+        public void DrawSpeed(List<GpsData> data)
         {
-            var data = Data.Select(i => i.Speed).ToArray();
-            int maxValue = data.Max();
+            var speedData = data.Select(i => i.Speed).ToArray();
+            int maxValue = speedData.Max();
 
             int stepValue = 750;
 
@@ -49,9 +52,9 @@ namespace GPSReport
             _writer.Write("\n   Speed                                                                   Hits\n");
             for(int i = 0; i <= maxValue; i += 10)
             {
-                int speedHits = data.Count(value => value >= i + 9);
+                int speedHits = speedData.Count(value => value >= i + 9);
                 string line;
-                if(speedHits < 750 && speedHits != 0)
+                if(speedHits < stepValue && speedHits != 0)
                 {
                     line = "#";
                 }
