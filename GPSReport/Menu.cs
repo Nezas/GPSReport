@@ -20,7 +20,7 @@ namespace GPSReport
                     case "1":
                         {
                             Console.Clear();
-                            histogram.DrawSattelites(data);
+                            histogram.DrawSatellites(data);
                             ContinueToMenu();
                             break;
                         }

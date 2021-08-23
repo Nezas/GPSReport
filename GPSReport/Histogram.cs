@@ -15,26 +15,26 @@ namespace GPSReport
             _writer = writer;
         }
 
-        public void DrawSattelites(List<GpsData> data)
+        public void DrawSatellites(List<GpsData> data)
         {
             var satellitesData = data.Select(i => i.Satellites).ToArray();
             int maxValue = satellitesData.Max();
 
             int stepValue = 100;
 
-            _writer.Write($"    Histogram of sattelites\n");
+            _writer.Write($"    Histogram of satellites\n");
             _writer.Write("\n");
             for(int i = 0; i <= maxValue; i++)
             {
-                int sattelites = satellitesData.Count(value => value == i);
+                int satellites = satellitesData.Count(value => value == i);
                 string line;
-                if(sattelites < stepValue && sattelites != 0)
+                if(satellites < stepValue && satellites != 0)
                 {
                     line = "#";
                 }
                 else
                 {
-                    line = new('#', sattelites / stepValue);
+                    line = new('#', satellites / stepValue);
                 }
                 _writer.Write($"{i, 3} |{line} \n");
             }
